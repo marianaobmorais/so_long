@@ -1,0 +1,5 @@
+*.o
+*.a
+so_long
+a.out
+minilibx-man-formatted
