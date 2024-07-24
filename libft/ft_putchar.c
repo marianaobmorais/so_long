@@ -1,41 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/17 19:19:25 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/24 16:28:30 by mariaoli         ###   ########.fr       */
+/*   Created: 2024/04/24 17:52:01 by mariaoli          #+#    #+#             */
+/*   Updated: 2024/04/30 16:05:01 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
-# include "libft/libft.h"
-# include "./minilibx-linux/mlx.h"
-# include <X11/keysym.h>
-# include <X11/X.h>
+#include "libft.h"
 
-typedef struct s_data
+int	ft_putchar(int c)
 {
-	void	*img;
-	char	*path;
-	int		bpp;
-	int		width;
-	int		height;
-	int		line_len;
-	int		endian;
-	int		x;
-	int		y;
-}	t_data;
+	unsigned char	chr;
 
-typedef struct s_game
-{
-	void	*mlx;
-	void	*window;
-	t_data	*data;
-	int		move_count;
-}	t_game;
-
-#endif
+	chr = (unsigned char)c;
+	write(1, &chr, 1);
+	return (1);
+}

@@ -1,41 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/17 19:19:25 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/24 16:28:30 by mariaoli         ###   ########.fr       */
+/*   Created: 2024/04/10 15:42:29 by mariaoli          #+#    #+#             */
+/*   Updated: 2024/04/16 17:35:26 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
-# include "libft/libft.h"
-# include "./minilibx-linux/mlx.h"
-# include <X11/keysym.h>
-# include <X11/X.h>
+#include "libft.h"
 
-typedef struct s_data
+int	ft_memcmp(const void *s1, const void *s2, size_t len)
 {
-	void	*img;
-	char	*path;
-	int		bpp;
-	int		width;
-	int		height;
-	int		line_len;
-	int		endian;
-	int		x;
-	int		y;
-}	t_data;
+	unsigned char	*b1;
+	unsigned char	*b2;
 
-typedef struct s_game
-{
-	void	*mlx;
-	void	*window;
-	t_data	*data;
-	int		move_count;
-}	t_game;
-
-#endif
+	b1 = (unsigned char *)s1;
+	b2 = (unsigned char *)s2;
+	while (len > 0)
+	{
+		if (*b1 != *b2)
+			return (*b1 - *b2);
+		++b1;
+		++b2;
+		--len;
+	}
+	return (0);
+}

@@ -1,41 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/17 19:19:25 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/24 16:28:30 by mariaoli         ###   ########.fr       */
+/*   Created: 2024/04/10 15:46:15 by mariaoli          #+#    #+#             */
+/*   Updated: 2024/04/16 19:59:17 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
-# include "libft/libft.h"
-# include "./minilibx-linux/mlx.h"
-# include <X11/keysym.h>
-# include <X11/X.h>
+#include "libft.h"
 
-typedef struct s_data
+int	ft_strncmp(const char *str1, const char *str2, size_t len)
 {
-	void	*img;
-	char	*path;
-	int		bpp;
-	int		width;
-	int		height;
-	int		line_len;
-	int		endian;
-	int		x;
-	int		y;
-}	t_data;
+	unsigned char	*s1;
+	unsigned char	*s2;
 
-typedef struct s_game
-{
-	void	*mlx;
-	void	*window;
-	t_data	*data;
-	int		move_count;
-}	t_game;
-
-#endif
+	s1 = (unsigned char *)str1;
+	s2 = (unsigned char *)str2;
+	while ((*s1 != '\0' || *s2 != '\0') && (len > 0))
+	{
+		if (*s1 != *s2)
+			return (*s1 - *s2);
+		++s1;
+		++s2;
+		--len;
+	}
+	return (0);
+}

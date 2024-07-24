@@ -1,41 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/17 19:19:25 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/24 16:28:30 by mariaoli         ###   ########.fr       */
+/*   Created: 2024/04/10 15:42:20 by mariaoli          #+#    #+#             */
+/*   Updated: 2024/04/16 20:29:58 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
-# include "libft/libft.h"
-# include "./minilibx-linux/mlx.h"
-# include <X11/keysym.h>
-# include <X11/X.h>
+#include "libft.h"
 
-typedef struct s_data
+void	*ft_memchr(const void *b, int c, size_t n)
 {
-	void	*img;
-	char	*path;
-	int		bpp;
-	int		width;
-	int		height;
-	int		line_len;
-	int		endian;
-	int		x;
-	int		y;
-}	t_data;
+	unsigned char	*str;
+	unsigned char	chr;
 
-typedef struct s_game
-{
-	void	*mlx;
-	void	*window;
-	t_data	*data;
-	int		move_count;
-}	t_game;
-
-#endif
+	str = (unsigned char *)b;
+	chr = (unsigned char)c;
+	while (n > 0)
+	{
+		if (*str == chr)
+			return ((char *)(str));
+		++str;
+		--n;
+	}
+	return (NULL);
+}

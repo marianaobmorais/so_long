@@ -1,41 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/17 19:19:25 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/24 16:28:30 by mariaoli         ###   ########.fr       */
+/*   Created: 2024/04/27 14:23:38 by mariaoli          #+#    #+#             */
+/*   Updated: 2024/04/30 18:05:40 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
-# include "libft/libft.h"
-# include "./minilibx-linux/mlx.h"
-# include <X11/keysym.h>
-# include <X11/X.h>
+#include "libft.h"
 
-typedef struct s_data
+int	ft_putstr(char *s)
 {
-	void	*img;
-	char	*path;
-	int		bpp;
-	int		width;
-	int		height;
-	int		line_len;
-	int		endian;
-	int		x;
-	int		y;
-}	t_data;
+	int	i;
 
-typedef struct s_game
-{
-	void	*mlx;
-	void	*window;
-	t_data	*data;
-	int		move_count;
-}	t_game;
-
-#endif
+	i = 0;
+	if (s == NULL)
+	{
+		return (ft_putstr("(null)"));
+	}
+	while (s[i] != '\0')
+	{
+		write(1, &s[i], sizeof(char));
+		i++;
+	}
+	return (i);
+}
