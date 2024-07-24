@@ -6,7 +6,7 @@
 #    By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/17 15:34:43 by mariaoli          #+#    #+#              #
-#    Updated: 2024/07/18 19:01:29 by mariaoli         ###   ########.fr        #
+#    Updated: 2024/07/24 19:51:24 by mariaoli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,11 +18,9 @@ LIBFT_DIR = ./libft
 MLIBX = ./minilibx-linux/libmlx.a
 MLIBX_DIR = ./minilibx-linux
 
-#SRCS = 
+SRCS = main.c check_args.c check_map.c
 
-#OBJS = $(SRCS:.c=.o)
-
-MAIN = main.c
+#OBJS = $(SRCS:.c=.o) 
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g
@@ -32,8 +30,8 @@ MLXFLAGS = -L ./minilibx-linux -lmlx -Ilmlx -lXext -lX11 -lm
 RM = rm -f
 
 
-$(NAME): libraries $(MAIN) #$(SRCS)
-	$(CC) $(CFLAGS) $(MAIN) $(LIBFT) $(MLXFLAGS) -o $(NAME)
+$(NAME): libraries $(SRCS)
+	$(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(MLXFLAGS) -o $(NAME)
 
 all: libraries $(NAME) #bonus
 
