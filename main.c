@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:18:43 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/24 19:49:00 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/07/25 18:18:05 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,6 @@ int	close_window(t_game *game)
 	exit (0);
 }
 
-void	init_game(t_game *game)
-{
-	game->mlx = NULL;
-	game->window = NULL;
-	game->image = NULL;
-	game->move_count = 0;
-}
-
 int main(int ac, char **av)
 {
 	t_game game;
@@ -81,9 +73,8 @@ int main(int ac, char **av)
 
 	if (!check_args(ac, av))
 		return (EXIT_FAILURE);
-	if (!check_map(av[1]))
-		return (EXIT_FAILURE);
 	init_game(&game);
+	game.map = get_map(av[1], game.map);
 	game.mlx = mlx_init();
 	if (game.mlx == NULL)
 		return (EXIT_FAILURE);
@@ -101,10 +92,7 @@ int main(int ac, char **av)
 		mlx_destroy_display(game.mlx);
 		return (EXIT_FAILURE);
 	}
-	
-/* 	image.path = mlx_get_data_addr(image.img_ptr, &image.bpp, &image.line_len, &image.endian);
-	image.x = 0;
-	image.y = 0; */
+
 
 	game.image = &image;
 

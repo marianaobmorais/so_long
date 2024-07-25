@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:19:25 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/24 19:53:56 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/07/25 18:17:40 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,17 @@
 # include <X11/X.h>
 
 # define ERROR_NO_ARG "Error: no arguments"
+
+typedef struct s_map
+{
+	char	**matrix;
+	int		row;
+	int		column;
+	int		collect;
+	int		exit;
+	int		player;
+	int		enemy;
+}	t_map;
 
 typedef struct s_image
 {
@@ -39,10 +50,15 @@ typedef struct s_game
 	void	*mlx;
 	void	*window;
 	t_image	*image;
+	t_map	*map;
 	int		move_count;
 }	t_game;
 
-int	check_args(int ac, char **av);
-int	check_map(char *file_name);
+
+int		check_args(int ac, char **av);
+t_map	*get_map(char *file_name, t_map *map);
+void	init_game(t_game *game);
+void	init_map(t_map *map);
+
 
 #endif
