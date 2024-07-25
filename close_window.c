@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   close_window.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/25 16:27:08 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/25 19:17:23 by mariaoli         ###   ########.fr       */
+/*   Created: 2024/07/25 19:15:12 by mariaoli          #+#    #+#             */
+/*   Updated: 2024/07/25 19:20:58 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	init_game(t_game *game)
+int	close_window(t_game *game)
 {
-	game->mlx = NULL;
-	game->window = NULL;
-	game->image = NULL;
-	game->map = NULL;
-	game->move_count = 0;
-}
-
-void	init_map(t_map *map)
-{
-	map->matrix = NULL;
-	map->row = 0;
-	map->column = 0;
-	map->collect = 0;
-	map->exit = 0;
-	map->player = 0;
-	map->enemy = 0;
+	free_map_matrix(game->map->matrix);
+	free(game->map);
+	mlx_destroy_image(game->mlx, game->image->img_ptr);
+	mlx_destroy_window(game->mlx, game->window);
+	mlx_destroy_display(game->mlx);
+	free(game->mlx);
+	exit (0);
 }

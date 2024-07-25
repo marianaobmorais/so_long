@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   free_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/25 16:27:08 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/25 19:17:23 by mariaoli         ###   ########.fr       */
+/*   Created: 2024/07/25 19:24:54 by mariaoli          #+#    #+#             */
+/*   Updated: 2024/07/25 19:25:10 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	init_game(t_game *game)
+void	free_map_matrix(char **matrix)
 {
-	game->mlx = NULL;
-	game->window = NULL;
-	game->image = NULL;
-	game->map = NULL;
-	game->move_count = 0;
-}
+	int	i;
 
-void	init_map(t_map *map)
-{
-	map->matrix = NULL;
-	map->row = 0;
-	map->column = 0;
-	map->collect = 0;
-	map->exit = 0;
-	map->player = 0;
-	map->enemy = 0;
+	i = 0;
+	if (matrix)
+	{
+		while (matrix[i])
+		{
+			free(matrix[i]);
+			i++;
+		}
+	}
+	free(matrix);
 }

@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:19:25 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/25 18:17:40 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/07/25 19:25:23 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int		check_args(int ac, char **av);
 t_map	*get_map(char *file_name, t_map *map);
 void	init_game(t_game *game);
 void	init_map(t_map *map);
-
+int		close_window(t_game *game);
+void	free_map_matrix(char **matrix);
 
 #endif

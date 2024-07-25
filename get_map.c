@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 19:49:19 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/25 18:18:37 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/07/25 19:48:03 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int	check_array(char *array)
 	i = 0;
 	while (array[i])
 	{
-	/* 	if (array[i] == '\n' && array[i + 1] == '\n')
-			return (ft_printf("Error: map has an empty line\n"), 0); */
+	 	if (array[i] == '\n' && array[i + 1] == '\n')
+			return (ft_printf("Error: map has an empty line\n"), 0);
 		if (array[i] != '1' && array[i] != '0' && array[i] != 'C' && array[i] != 'E' && array[i] != 'P' && array[i] != '\n')
 			return (ft_printf("Error: map can only have the following characters -> 0, 1, C, E, P\n"), 0);
 		i++;
@@ -89,21 +89,35 @@ int	check_columns(t_map *map)
 	return (1);
 }
 
-void	free_map_matrix(char **matrix)
+/* int	closed_map(t_game *game)
 {
 	int	i;
+	int	j;
+	char	**matrix;
 
+	matrix = game->map->matrix;
 	i = 0;
-	if (matrix)
+	if (i == 0 || i == game->map->column - 1)
 	{
-		while (matrix[i])
-		{
-			free(matrix[i]);
-			i++;
-		}
+		
 	}
-	free(matrix);
-}
+	
+	while (game->map->matrix[i ] != '\0')
+	{
+		j = 0;
+		while (game->map->matrix[i][j] != '\0')
+		{
+
+		}
+		i++;
+	}
+	return (1);
+} */
+
+/* int	check_path(char **matrix)
+{
+	return (1);
+} */
 
 int check_map(char *file_name, t_map *map)
 {
@@ -111,38 +125,36 @@ int check_map(char *file_name, t_map *map)
 
 	map_array = read_file(file_name, map);
 	if (!check_array(map_array))
-	{
-		free(map_array);
-		exit(EXIT_FAILURE);
-	}
+		return (free(map_array), 0);
 	if (map->row < 3)
 	{
 		free(map_array);
-		ft_printf("Error: map requires at least 3 rows\n");
-		exit(EXIT_FAILURE);
+		return (ft_printf("Error: map requires at least 3 rows\n"), 0);
 	}
 	map->matrix = ft_split(map_array, '\n');
 	free(map_array);
 	if (!map->matrix)
-	{
-		ft_printf("Error: memory allocation failed in ft_split\n");
-		exit(EXIT_FAILURE);
-	}
+		return (ft_printf("Error: memory allocation failed in ft_split\n"), 0);
 	if (!check_columns(map))
-	{
-		free_map_matrix(map->matrix);
-		exit(EXIT_FAILURE);
-	}
+		return(free_map_matrix(map->matrix), 0);
+	if (!closed_map(map->matrix))
+		return(free_map_matrix(map->matrix), 0);
+	if (!check_path(map->matrix))
+		return(free_map_matrix(map->matrix), 0);
 	return (1);
 }
 
 t_map	*get_map(char *file_name, t_map *map)
 {
 	t_map	*res;
-	
+
 	res = map;
 	init_map(res);
-	if (check_map(file_name, res))
-		ft_printf("valid map");
+	if (!check_map(file_name, res))
+	{
+		free_map_matrix(res->matrix);
+		free(map);
+		exit(EXIT_FAILURE);
+	}
 	return (res);
 }
