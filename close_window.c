@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 19:15:12 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/25 19:20:58 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/07/26 17:03:14 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 int	close_window(t_game *game)
 {
-	free_map_matrix(game->map->matrix);
-	free(game->map);
+	free_structs(game);
 	mlx_destroy_image(game->mlx, game->image->img_ptr);
 	mlx_destroy_window(game->mlx, game->window);
 	mlx_destroy_display(game->mlx);

@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:19:25 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/25 19:25:23 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/07/26 18:42:35 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,22 @@
 
 # define ERROR_NO_ARG "Error: no arguments"
 
+typedef	struct s_pos
+{
+	int	x;
+	int	y;
+}	t_pos;
+
+
 typedef struct s_map
 {
 	char	**matrix;
 	int		row;
 	int		column;
+	t_pos	p_position;
+	int		player;
 	int		collect;
 	int		exit;
-	int		player;
 	int		enemy;
 }	t_map;
 
@@ -61,5 +69,6 @@ void	init_game(t_game *game);
 void	init_map(t_map *map);
 int		close_window(t_game *game);
 void	free_map_matrix(char **matrix);
+void	free_structs(t_game *game);
 
 #endif
