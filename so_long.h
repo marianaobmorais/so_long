@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:19:25 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/26 18:42:35 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/07/27 20:33:53 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,9 @@ typedef struct s_map
 	int		row;
 	int		column;
 	t_pos	p_position;
-	int		player;
-	int		collect;
-	int		exit;
-	int		enemy;
+	int		p_count;
+	int		c_count;
+	int		e_count;
 }	t_map;
 
 typedef struct s_image
@@ -64,11 +63,22 @@ typedef struct s_game
 
 
 int		check_args(int ac, char **av);
-t_map	*get_map(char *file_name, t_map *map);
+
+t_map	init_map(int fd);
 void	init_game(t_game *game);
-void	init_map(t_map *map);
+
+
+char 	**get_matrix(int fd);
+int		count_rows(char **matrix);
+t_pos	player_position(char **matrix);
+int		count_characters(char **matrix, char c);
+
+t_map	*get_map(char *file_name, t_map *map);
+
 int		close_window(t_game *game);
 void	free_map_matrix(char **matrix);
 void	free_structs(t_game *game);
+
+int 	key_input(int keysym, t_game *game);
 
 #endif

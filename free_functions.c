@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 19:24:54 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/26 19:00:13 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/07/27 17:32:01 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,12 @@ void	free_map_matrix(char **matrix)
 	int	i;
 
 	i = 0;
-	if (matrix)
+	if (!matrix)
+		return ;
+	while (matrix[i])
 	{
-		while (matrix[i])
-		{
-			free(matrix[i]);
-			i++;
-		}
+		free(matrix[i]);
+		i++;
 	}
 	free(matrix);
 }

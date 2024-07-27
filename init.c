@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:27:08 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/26 19:06:17 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/07/27 20:22:01 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,18 @@ void	init_game(t_game *game)
 	game->move_count = 0;
 }
 
-void	init_map(t_map *map)
+t_map	init_map(int fd)
 {
-	map->matrix = NULL;
-	map->row = 0;
-	map->column = 0;
-	map->p_position.x = 0;
-	map->p_position.y = 0;
-	map->player = 0;
-	map->collect = 0;
-	map->exit = 0;
-	map->enemy = 0;
+	t_map	map;
+	
+	map.matrix = get_matrix(fd);
+	if (!map.matrix)
+		return (map);
+	map.row = count_rows(map.matrix);
+	map.column = ft_strlen(map.matrix[0]);
+	map.p_position = player_position(map.matrix);
+	map.p_count = count_characters(map.matrix, 'P');
+	map.c_count = count_characters(map.matrix, 'C');
+	map.e_count = count_characters(map.matrix, 'E');
+	return (map);
 }

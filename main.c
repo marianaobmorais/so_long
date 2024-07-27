@@ -6,51 +6,32 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:18:43 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/26 19:06:21 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/07/27 20:36:32 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int key_input(int keysym, t_game *game)
-{
-	if (keysym == XK_Escape)
-	{
-		//free(game->map->p_position);
-		free_map_matrix(game->map->matrix);
-		free(game->map);
-		mlx_destroy_image(game->mlx, game->image->img_ptr);
-		mlx_destroy_window(game->mlx, game->window);
-		mlx_destroy_display(game->mlx);
-		free(game->mlx);
-		exit (0);
-	}
-	if (keysym == XK_A || keysym == XK_D || keysym == XK_W || keysym == XK_S ||
-		keysym == XK_a || keysym == XK_d || keysym == XK_w || keysym == XK_s)
-	{
-		game->move_count += 1;
-		ft_printf("Movement count: %i\n", game->move_count);
-	}
-	if (keysym == XK_Left || keysym == XK_Right || keysym == XK_Up || keysym == XK_Down)
-	{
-		game->move_count += 1;
-		ft_printf("Movement count: %i\n", game->move_count);
-	}
-	return (0);
-}
-
 int main(int ac, char **av)
 {
-	t_game game;
-	t_image image;
+	int		fd;
+	t_map	map;
+	t_game	game;
+	t_image	image;
 
 	if (!check_args(ac, av))
 		return (EXIT_FAILURE);
+	fd = open(av[1], O_RDONLY);
+	map = init_map(fd);
+	if (!map.matrix)
+		exit(EXIT_FAILURE);
+
+	//------------------------------------//
 	init_game(&game);
 	game.map = (t_map *)malloc(sizeof(t_map));
 	if (game.map == NULL)
 		return(ft_printf("Error: Memory allocation failed\n"), EXIT_FAILURE);
-	init_map(game.map);
+	
 	game.map = get_map(av[1], game.map);
 	game.mlx = mlx_init();
 	if (game.mlx == NULL)

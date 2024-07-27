@@ -6,55 +6,11 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 19:49:19 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/26 19:19:55 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/07/27 20:33:35 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-char *read_file_rows(char *file_name, t_map *map)
-{
-	int		fd;
-	char	*line;
-	char	*map_array;
-	char	*tmp;
-
-	fd = open(file_name, O_RDONLY);
-	line = get_next_line(fd);
-	map_array = NULL;
-	while (line)
-	{
-		tmp = ft_strjoin(map_array, line);
-		free(line);
-		free(map_array);
-		line = get_next_line(fd);
-		map_array = tmp;
-		map->row++;
-	}
-	close(fd);
-	if (map->row < 3)
-	{
-		free(map_array);
-		return (ft_printf("Error: map requires at least 3 rows\n"), NULL);
-	}
-	return (map_array);
-}
-
-int	check_array(char *array)
-{
-	int		i;
-	
-	i = 0;
-	while (array[i])
-	{
-	 	if (array[i] == '\n' && array[i + 1] == '\n')
-			return (ft_printf("Error: map has an empty line\n"), 0);
-		if (array[i] != '1' && array[i] != '0' && array[i] != 'C' && array[i] != 'E' && array[i] != 'P' && array[i] != '\n')
-			return (ft_printf("Error: map can only have the following characters -> 0, 1, C, E, P\n"), 0);
-		i++;
-	}
-	return (1);
-}
 
 int	check_columns(t_map *map)
 {
@@ -92,14 +48,14 @@ void	get_characters(t_map *map)
 		{
 			if (map->matrix[i][j] == 'P')
 			{
-				map->player++;
+				map->p_count++;
 				map->p_position.x = i;
 				map->p_position.y = j;
 			}
 			if (map->matrix[i][j] == 'C')
-				map->collect++;
+				map->c_count++;
 			if (map->matrix[i][j] == 'E')
-				map->exit++;
+				map->e_count++;
 			j++;
 		}
 		i++;
@@ -109,21 +65,12 @@ void	get_characters(t_map *map)
 int	check_characters(t_map *map)
 {
 	get_characters(map);
-	if (map->player != 1)
+	if (map->p_count != 1)
 		return (ft_printf("Error: you must have only one player\n"), 0);
-	if (map->collect < 1)
+	if (map->c_count < 1)
 		return (ft_printf("Error: you need at least one collectable\n"), 0);
-	if (map->exit != 1)
+	if (map->e_count != 1)
 		return (ft_printf("Error: you must have only one exit\n"), 0);
-	return (1);
-}
-
-int	make_map_matrix(char *map_array, t_map *map)
-{
-	map->matrix = ft_split(map_array, '\n');
-	free(map_array);
-	if (!map->matrix)
-		return (ft_printf("Error: memory allocation failed in ft_split\n"), 0);
 	return (1);
 }
 
@@ -154,32 +101,66 @@ int	closed_map(t_map *map)
 	return (1);
 }
 
-void	flood_fill(char **tmp, int row, int col, t_pos begin)
+int	path_is_valid(t_map *tmp, int x, int y)
 {
-	char	c;
-	t_pos	pos;
+	char	curr;
+	
+	if (x < 0 || y < 0 || x >= tmp->row || y >= tmp->column || tmp->matrix[x][y] == '1')
+		return (0);
+	if (tmp->matrix[x][y] == 'E')
+	{
+		if (tmp->c_count == 0)
+			return (1);
+		return (0);
+	}
+	if (tmp->matrix[x][y] == 'C')
+		tmp->c_count--;
+	curr = tmp->matrix[x][y];
+	tmp->matrix[x][y] = '1';
+	if (path_is_valid(tmp, x - 1, y) || path_is_valid(tmp, x + 1, y)
+		|| path_is_valid(tmp, x, y - 1) || path_is_valid(tmp, x, y + 1))
+		return (1);
+	tmp->matrix[x][y] = curr;
+	if (curr == 'C')
+		tmp->c_count++;
+	return (0);
+} 
 
-	c = tmp[begin.y][begin.x];
-	tmp[begin.y][begin.x] = 'F';
-
-	flood_fill();
-}
 
 int	check_path(t_map *map)
 {
 	int		i;
-	char	**tmp;
+	t_map	tmp;
 
 	i = 0;
-	while (map->matrix[i])
+	tmp.matrix = malloc(sizeof(char *) * (map->row + 1));
+	if (!tmp.matrix)
+		return (ft_printf("Error: memory allocation failed\n"), 0);
+	while (i < map->row)
 	{
-		tmp[i] = ft_strdup(map->matrix[i]);
+		tmp.matrix[i] = ft_strdup(map->matrix[i]);
+		if (!tmp.matrix[i])
+		{
+			while (i > 0)
+				free(tmp.matrix[--i]);
+			free(tmp.matrix);
+			return (ft_printf("Error: memory allocation failed\n"), 0);
+		}
 		i++;
 	}
-	flood_fill(tmp, map->row, map->column, map->p_position);
-	free_map_matrix(tmp);
+	tmp.matrix[i] = NULL;
+	tmp.c_count = map->c_count;
+	tmp.column = map->column;
+	tmp.row = map->row;
+	if (!path_is_valid(&tmp, map->p_position.x, map->p_position.y))
+	{
+		free_map_matrix(tmp.matrix);
+		return (ft_printf("Error: map path is not valid\n"), 0);
+	}
+	free_map_matrix(tmp.matrix);
 	return (1);
 }
+
 
 int valid_matrix(char *file_name, t_map *map)
 {
