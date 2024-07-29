@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 20:32:54 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/27 20:35:48 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:01:03 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,21 @@
 static int	check_array(char *array)
 {
 	int		i;
-	
+
 	i = 0;
 	while (array[i])
 	{
-	 	if (array[i] == '\n' && array[i + 1] == '\n')
-			return (ft_printf("Error: map has an empty line\n"), 0);
-		if (array[i] != '1' && array[i] != '0' && array[i] != 'C' && array[i] != 'E' && array[i] != 'P' && array[i] != '\n')
-			return (ft_printf("Error: map can only have the following characters -> 0, 1, C, E, P\n"), 0);
+		if (array[i] == '\n' && array[i + 1] == '\n')
+			return (ft_printf(ERROR_EMPTY_LINE), 0);
+		if (array[i] != '1' && array[i] != '0' && array[i] != 'C'
+			&& array[i] != 'E' && array[i] != 'P' && array[i] != '\n')
+			return (ft_printf(ERROR_CHARS), 0);
 		i++;
 	}
 	return (1);
 }
 
-char **get_matrix(int fd)
+char	**get_matrix(int fd)
 {
 	char	*line;
 	char	*map_array;
@@ -51,15 +52,14 @@ char **get_matrix(int fd)
 	matrix = ft_split(map_array, '\n');
 	free(map_array);
 	if (!matrix)
-		return (ft_printf("Error: memory allocation failed in ft_split\n"), NULL);
+		return (ft_printf(ERROR_MALLOC), NULL);
 	return (matrix);
 }
 
 int	count_rows(char **matrix)
 {
 	int	i;
-/* 	if (!matrix)
-		return (0); */
+
 	i = 0;
 	while (matrix[i])
 		i++;
@@ -71,20 +71,25 @@ t_pos	player_position(char **matrix)
 	int		i;
 	int		j;
 	t_pos	pos;
-	
-/* 	if(!matrix)
-		return (NULL); */
+
 	i = 0;
 	while (matrix[i])
 	{
 		j = 0;
-		while (matrix[i][j] == 'P')
+		while (matrix[i][j])
 		{
-			pos.x = i,
-			pos.y = j;
+			if (matrix[i][j] == 'P')
+			{
+				pos.x = i;
+				pos.y = j;
+				return (pos);
+			}
+			j++;
 		}
 		i++;
 	}
+	pos.x = -1;
+	pos.y = -1;
 	return (pos);
 }
 
@@ -94,10 +99,9 @@ int	count_characters(char **matrix, char c)
 	int	j;
 	int	count;
 
-	/* if (!matrix)
-		return (0); */
 	i = 0;
-	while(matrix[i])
+	count = 0;
+	while (matrix[i])
 	{
 		j = 0;
 		while (matrix[i][j])

@@ -6,7 +6,7 @@
 #    By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/17 15:34:43 by mariaoli          #+#    #+#              #
-#    Updated: 2024/07/27 20:34:16 by mariaoli         ###   ########.fr        #
+#    Updated: 2024/07/29 14:36:09 by mariaoli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIBFT_DIR = ./libft
 MLIBX = ./minilibx-linux/libmlx.a
 MLIBX_DIR = ./minilibx-linux
 
-SRCS = main.c check_args.c get_map.c init.c init_map.c hook_functions.c free_functions.c
+SRCS = main.c check_args.c check_map.c init.c init_map.c hook_functions.c free_functions.c
 
 #OBJS = $(SRCS:.c=.o) 
 
