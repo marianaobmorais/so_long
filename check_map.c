@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 19:49:19 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/29 20:39:38 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/07/30 14:39:35 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,32 +59,21 @@ int	map_is_closed(t_map map)
 
 int	path_is_valid(t_map *tmp, int x, int y)
 {
-	ft_printf("Checking position (%d, %d)\n", x, y);
-	char	curr;
-	int		valid;
-
-	if (x < 0 || y < 0 || x >= tmp->row || y >= tmp->column
-		|| tmp->matrix[x][y] == '1' || tmp->matrix[x][y] == 'V')
+	if (x < 0 || y < 0 || x >= tmp->row || y >= tmp->column)
 		return (0);
-	if (tmp->matrix[x][y] == 'E' && tmp->c_count == 0)
-	{
-		ft_printf("Exit found at (%d, %d) with %d collectibles left\n", x, y, tmp->c_count);
+	if (tmp->matrix[x][y] == 'E')
+		tmp->e_count--;
+	if (tmp->c_count == 0 && tmp->e_count == 0)
 		return (1);
-	}
+	if (tmp->matrix[x][y] == '1')
+		return (0);
 	if (tmp->matrix[x][y] == 'C' && tmp->c_count > 0)
-	{
 		tmp->c_count--;
-		ft_printf("Collectible found at (%d, %d). Remaining: %d\n", x, y, tmp->c_count);
-	}
-	curr = tmp->matrix[x][y];
-	tmp->matrix[x][y] = 'V';
-	valid = path_is_valid(tmp, x - 1, y) || path_is_valid(tmp, x + 1, y)
-		|| path_is_valid(tmp, x, y - 1) || path_is_valid(tmp, x, y + 1);
+	tmp->matrix[x][y] = '1';
+	if (path_is_valid(tmp, x - 1, y) || path_is_valid(tmp, x + 1, y)
+		|| path_is_valid(tmp, x, y - 1) || path_is_valid(tmp, x, y + 1))
 		return (1);
-	tmp->matrix[x][y] = curr;
-	if (curr == 'C')
-		tmp->c_count++;
-	return (valid);
+	return (0);
 }
 
 int	check_path(t_map map)

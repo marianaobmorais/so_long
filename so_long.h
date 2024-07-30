@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:19:25 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/29 19:19:41 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/07/30 14:51:12 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@
 # define ERROR_COL_ROW "Error: map has less than 3 rows and/or 3 columns\n"
 # define ERROR_RECTANGLE "Error: map must be a rectangle\n"
 # define ERROR_WALLS "Error: map must be surrounded by walls\n"
-# define ERROR_PLAYER "Error: you must have only one player\n"
+# define ERROR_PLAYER "Error: you must have one player\n"
 # define ERROR_COLLECT "Error: you need at least one collectable\n"
-# define ERROR_EXIT "Error: you must have only one exit\n"
+# define ERROR_EXIT "Error: you must have one exit\n"
 # define ERROR_PATH "Error: map does not have a valid path\n"
 
 # define PIXEL 32
