@@ -6,40 +6,40 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 19:49:19 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/30 14:39:35 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:05:40 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	check_columns(t_map map)
+int	check_columns(t_map *map)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (map.matrix[i])
+	while (map->matrix[i])
 	{
 		j = 0;
-		while (map.matrix[i][j])
+		while (map->matrix[i][j])
 			j++;
-		if (map.column != j)
+		if (map->column != j)
 			return (0);
 		i++;
 	}
 	return (1);
 }
 
-int	map_is_closed(t_map map)
+int	map_is_closed(t_map *map)
 {
 	int		i;
 	int		col;
 	int		row;
 	char	**mtrx;
 
-	mtrx = map.matrix;
-	col = map.column;
-	row = map.row;
+	mtrx = map->matrix;
+	col = map->column;
+	row = map->row;
 	i = 0;
 	while (i < col)
 	{
@@ -76,7 +76,7 @@ int	path_is_valid(t_map *tmp, int x, int y)
 	return (0);
 }
 
-int	check_path(t_map map)
+int	check_path(t_map *map)
 {
 	int		i;
 	t_map	tmp;
@@ -85,7 +85,7 @@ int	check_path(t_map map)
 	init_tmp(&tmp, map);
 	if (!tmp.matrix)
 		return (ft_printf(ERROR_MALLOC), 0);
-	if (!path_is_valid(&tmp, map.p_position.x, map.p_position.y))
+	if (!path_is_valid(&tmp, map->p_position.x, map->p_position.y))
 	{
 		free_map_matrix(tmp.matrix);
 		return (0);
@@ -94,19 +94,19 @@ int	check_path(t_map map)
 	return (1);
 }
 
-int	check_map(t_map map)
+int	check_map(t_map *map)
 {
-	if (map.row < 3 || map.column < 3)
+	if (map->row < 3 || map->column < 3)
 		return (ft_printf(ERROR_COL_ROW), 0);
 	if (!check_columns(map))
 		return (ft_printf(ERROR_RECTANGLE), 0);
 	if (!map_is_closed(map))
 		return (ft_printf(ERROR_WALLS), 0);
-	if (map.p_count != 1)
+	if (map->p_count != 1)
 		return (ft_printf(ERROR_PLAYER), 0);
-	if (map.c_count < 1)
+	if (map->c_count < 1)
 		return (ft_printf(ERROR_COLLECT), 0);
-	if (map.e_count != 1)
+	if (map->e_count != 1)
 		return (ft_printf(ERROR_EXIT), 0);
 	if (!check_path(map))
 		return (ft_printf(ERROR_PATH), 0);

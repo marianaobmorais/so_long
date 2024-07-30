@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:18:43 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/29 19:07:00 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/07/30 21:04:21 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,28 @@
 
 int	main(int ac, char **av)
 {
-	int		fd;
-	t_map	map;
-	t_game	game;
-	//t_image	image;
+	t_map	*map;
+	t_game	*game;
 
 	if (!check_args(ac, av))
 		return (EXIT_FAILURE);
-	fd = open(av[1], O_RDONLY);
-	map = init_map(fd);
-	if (!map.matrix)
+	map = init_map(av[1]);
+	if (!map || !map->matrix)
 		exit(EXIT_FAILURE);
 	if (!check_map(map))
 	{
-		free_map_matrix(map.matrix);
-		exit(EXIT_FAILURE);
+		free_map_matrix(map->matrix);
+		return (EXIT_FAILURE);
 	}
-	init_game(&map, &game);
-	if (!game.mlx || !game.window || !game.image)
-		exit(EXIT_FAILURE);
-	mlx_hook(game.window, KeyPress, KeyPressMask, key_input, &game);
-	mlx_hook(game.window, DestroyNotify, NoEventMask, close_window, &game);
-	mlx_loop(game.mlx);
+	game = init_game(map);
+	if (!game->mlx || !game->window || !game->img)
+	{
+		free_structs(game);
+		return (ft_printf(ERROR_GAME_INIT), EXIT_FAILURE);
+	}
+	render(game);
+	mlx_hook(game->window, KeyPress, KeyPressMask, key_input, game);
+	mlx_hook(game->window, DestroyNotify, NoEventMask, close_window, game);
+	mlx_loop(game->mlx);
 	return (0);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_map.c                                         :+:      :+:    :+:   */
+/*   init_map_functions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 20:32:54 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/29 16:01:03 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/07/30 21:05:00 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ char	**get_matrix(int fd)
 		line = get_next_line(fd);
 		map_array = tmp;
 	}
-	close(fd);
 	if (!check_array(map_array))
 		return (free(map_array), NULL);
 	matrix = ft_split(map_array, '\n');
@@ -66,11 +65,11 @@ int	count_rows(char **matrix)
 	return (i);
 }
 
-t_pos	player_position(char **matrix)
+t_point	player_position(char **matrix)
 {
 	int		i;
 	int		j;
-	t_pos	pos;
+	t_point	point;
 
 	i = 0;
 	while (matrix[i])
@@ -80,17 +79,17 @@ t_pos	player_position(char **matrix)
 		{
 			if (matrix[i][j] == 'P')
 			{
-				pos.x = i;
-				pos.y = j;
-				return (pos);
+				point.x = i;
+				point.y = j;
+				return (point);
 			}
 			j++;
 		}
 		i++;
 	}
-	pos.x = -1;
-	pos.y = -1;
-	return (pos);
+	point.x = -1;
+	point.y = -1;
+	return (point);
 }
 
 int	count_characters(char **matrix, char c)
