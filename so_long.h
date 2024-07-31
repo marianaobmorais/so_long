@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:19:25 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/30 21:04:31 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:07:11 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@
 # define ERROR_GAME_INIT "Error: game initialization failed\n"
 # define ERROR_NO_ARG "Error: no arguments"
 # define ERROR_EMPTY_LINE "Error: map has an empty line\n"
-# define ERROR_CHARS "Error: map has invalid characters\n"
+# define ERROR_CHARS "Error: map has invalid characters.\
+ Allowed characters: 0, 1, P, C, E\n"
 # define ERROR_MALLOC "Error: memory allocation failed\n"
 # define ERROR_COL_ROW "Error: map has less than 3 rows and/or 3 columns\n"
 # define ERROR_RECTANGLE "Error: map must be a rectangle\n"
@@ -33,6 +34,8 @@
 # define ERROR_COLLECT "Error: you need at least one collectable\n"
 # define ERROR_EXIT "Error: you must have one exit\n"
 # define ERROR_PATH "Error: map does not have a valid path\n"
+# define ERROR_READ "Error: unsuccessfull file read\n"
+# define ERROR_IMG_LOAD "Error: counld not load image %s\n"
 
 # define PIXEL 32
 
@@ -77,7 +80,7 @@ typedef struct s_game
 int		check_args(int ac, char **av);
 t_map	*init_map(char *filename);
 void	init_tmp(t_map *tmp, t_map *map);
-t_game	*init_game(t_map *map/* , t_game *game */);
+t_game	*init_game(t_map *map);
 char	**get_matrix(int fd);
 int		count_rows(char **matrix);
 t_point	player_position(char **matrix);
@@ -92,5 +95,6 @@ void	put_tile(t_game *game, char *path, int x, int y);
 void	free_map_matrix(char **matrix);
 void	free_structs(t_game *game);
 int		key_input(int keysym, t_game *game);
+void	move_up(t_game *game);
 
 #endif

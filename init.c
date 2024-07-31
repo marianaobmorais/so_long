@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:27:08 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/30 21:06:56 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/07/31 17:23:05 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,25 @@ t_map	*init_map(char *filename)
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		return (ft_printf("Error: unsuccessfull file read"), NULL);
+		return (ft_printf(ERROR_READ), NULL);
 	map = (t_map *)malloc(sizeof(t_map));
+	if (!map)
+		return (ft_printf(ERROR_MALLOC), NULL);
 	map->matrix = get_matrix(fd);
 	close(fd);
 	if (!map->matrix)
-		return (map);
+		return (free(map), NULL);
 	map->row = count_rows(map->matrix);
 	map->column = ft_strlen(map->matrix[0]);
 	map->p_position = player_position(map->matrix);
 	map->p_count = count_characters(map->matrix, 'P');
 	map->c_count = count_characters(map->matrix, 'C');
 	map->e_count = count_characters(map->matrix, 'E');
+	if (!check_map(map))
+	{
+		free_map_matrix(map->matrix);
+		return (free(map), NULL);
+	}
 	return (map);
 }
 
@@ -65,14 +72,11 @@ void	init_tmp(t_map *tmp, t_map *map)
 
 t_image	*init_image(t_game *game)
 {
-	game->img = (t_image *)malloc(sizeof(t_image));
-	if (!game->img)
-		return (NULL);
 	game->img->img_ptr = mlx_new_image(game->mlx,
 			(game->map->column * PIXEL), (game->map->row * PIXEL));
 	if (!game->img->img_ptr)
 		return (NULL);
-	game->img->bpp = 0;				//These will then be updated accordingly to the *current* data address
+	game->img->bpp = 0;
 	game->img->line_len = 0;
 	game->img->endian = 0;
 	game->img->addr = mlx_get_data_addr(game->img->img_ptr, &game->img->bpp,
@@ -84,22 +88,25 @@ t_image	*init_image(t_game *game)
 	return (game->img);
 }
 
-t_game	*init_game(t_map *map/* , t_game *game */)
+t_game	*init_game(t_map *map)
 {
 	t_game	*game;
-	
+
 	game = (t_game *)malloc(sizeof(t_game));
 	game->mlx = mlx_init();
 	if (!game->mlx)
-		return (NULL);
-	game->window = mlx_new_window(game->mlx, (map->column * PIXEL), (map->row * PIXEL), "so_long");
+		return (free_structs(game), NULL);
+	game->window = mlx_new_window(game->mlx, (map->column * PIXEL),
+			(map->row * PIXEL), "so_long");
 	if (!game->window)
-		return (NULL);
+		return (free_structs(game), NULL);
 	game->map = map;
-	game->img = init_image(game);
+	game->img = (t_image *)malloc(sizeof(t_image));
 	if (!game->img)
 		return (NULL);
-
+	game->img = init_image(game);
+	if (!game->img)
+		return (free_structs(game), NULL);
 	game->move_count = 0;
 	return (game);
 }
