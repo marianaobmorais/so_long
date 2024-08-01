@@ -6,7 +6,7 @@
 #    By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/17 15:34:43 by mariaoli          #+#    #+#              #
-#    Updated: 2024/07/30 20:20:53 by mariaoli         ###   ########.fr        #
+#    Updated: 2024/08/01 16:08:39 by mariaoli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIBFT_DIR = ./libft
 MLIBX = ./minilibx-linux/libmlx.a
 MLIBX_DIR = ./minilibx-linux
 
-SRCS = main.c check_args.c check_map.c init.c init_map_functions.c hook_functions.c free_functions.c render.c
+SRCS = main.c check_args.c check_map.c init.c init_map_utils.c hook_functions.c key_input_utils.c move.c free_functions.c render.c
 
 #OBJS = $(SRCS:.c=.o) 
 
@@ -29,14 +29,15 @@ MLXFLAGS = -L ./minilibx-linux -lmlx -Ilmlx -lXext -lX11 -lm
 
 RM = rm -f
 
-
-$(NAME): libraries $(SRCS)
+$(NAME): $(LIBFT) $(MLIBX) $(SRCS)
 	$(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(MLXFLAGS) -o $(NAME)
 
 all: libraries $(NAME) #bonus
 
-libraries:
+$(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
+	
+$(MLIBX):
 	$(MAKE) -C $(MLIBX_DIR)
 
 #%.o: %.c

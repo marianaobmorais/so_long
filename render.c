@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:49:16 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/31 18:41:56 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/01 15:47:35 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ void	put_tile(t_game *game, char *path, int x, int y)
 			x, y);
 	}
 	else
+	{
 		ft_printf(ERROR_IMG_LOAD, path);
+		free_structs(game);
+		exit(EXIT_FAILURE);
+	}
 }
 
 void	render(t_game *game)
@@ -45,15 +49,15 @@ void	render(t_game *game)
 		while (y < game->map->row)
 		{
 			if (game->map->matrix[y][x] == '0')
-				put_tile(game, "./img/floor.xpm", (x * PIXEL), (y * PIXEL));
+				put_tile(game, "./textures/0.xpm", (x * PIXEL), (y * PIXEL));
 			else if (game->map->matrix[y][x] == '1')
-				put_tile(game, "./img/wall.xpm", (x * PIXEL), (y * PIXEL));
+				put_tile(game, "./textures/1.xpm", (x * PIXEL), (y * PIXEL));
 			else if (game->map->matrix[y][x] == 'C')
-				put_tile(game, "./img/collect/front.xpm", (x * PIXEL), (y * PIXEL));
+				put_tile(game, "./textures/c.xpm", (x * PIXEL), (y * PIXEL));
 			else if (game->map->matrix[y][x] == 'E')
-				put_tile(game, "./img/exit.xpm", (x * PIXEL), (y * PIXEL));
+				put_tile(game, "./textures/e.xpm", (x * PIXEL), (y * PIXEL));
 			else if (game->map->matrix[y][x] == 'P')
-				put_tile(game, "./img/player/front.xpm", (x * PIXEL), (y * PIXEL));
+				put_tile(game, "./textures/p_f.xpm", (x * PIXEL), (y * PIXEL));
 			y++;
 		}
 		x++;

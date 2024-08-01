@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:19:25 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/31 18:07:11 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/01 15:07:50 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@
 # define ERROR_EXIT "Error: you must have one exit\n"
 # define ERROR_PATH "Error: map does not have a valid path\n"
 # define ERROR_READ "Error: unsuccessfull file read\n"
-# define ERROR_IMG_LOAD "Error: counld not load image %s\n"
+# define ERROR_IMG_LOAD "Error: could not load image %s\n"
+
+# define GAME_COMPLETE "Congratulations! You completed the game!\n"
 
 # define PIXEL 32
 
@@ -95,6 +97,13 @@ void	put_tile(t_game *game, char *path, int x, int y);
 void	free_map_matrix(char **matrix);
 void	free_structs(t_game *game);
 int		key_input(int keysym, t_game *game);
+void	check_up(t_game *game);
+void	check_down(t_game *game);
+void	check_left(t_game *game);
+void	check_right(t_game *game);
 void	move_up(t_game *game);
+void	move_down(t_game *game);
+void	move_left(t_game *game);
+void	move_right(t_game *game);
 
 #endif
