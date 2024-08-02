@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 20:32:54 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/01 14:05:55 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/02 16:36:43 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ char	**get_matrix(int fd)
 		line = get_next_line(fd);
 		map_array = tmp;
 	}
+	if (!map_array)
+		return (ft_printf(ERROR_EMPTY_LINE), NULL);
 	if (!check_array(map_array))
 		return (free(map_array), NULL);
 	matrix = ft_split(map_array, '\n');
