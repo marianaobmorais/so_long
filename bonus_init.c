@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   bonus_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:27:08 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/03 17:59:09 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/03 19:21:09 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "bonus_so_long.h"
 
 t_map	*init_map(char *filename)
 {
@@ -29,7 +29,8 @@ t_map	*init_map(char *filename)
 		return (free(map), NULL);
 	map->row = count_rows(map->matrix);
 	map->column = ft_strlen(map->matrix[0]);
-	map->p_position = player_position(map->matrix);
+	map->e_position = char_position(map->matrix, 'E');
+	map->p_position = char_position(map->matrix, 'P');
 	map->p_count = count_characters(map->matrix, 'P');
 	map->c_count = count_characters(map->matrix, 'C');
 	map->e_count = count_characters(map->matrix, 'E');

@@ -6,11 +6,13 @@
 #    By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/17 15:34:43 by mariaoli          #+#    #+#              #
-#    Updated: 2024/08/03 17:37:07 by mariaoli         ###   ########.fr        #
+#    Updated: 2024/08/03 18:16:52 by mariaoli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
+B_NAME = bonus_so_long
+
 
 LIBFT = ./libft/libft.a
 LIBFT_DIR = ./libft
@@ -21,9 +23,18 @@ MLIBX_DIR = ./minilibx-linux
 SRCS = main.c \
 		check_args.c check_map.c \
 		init.c init_map_utils.c \
-		hook_functions.c press_left.c press_right.c press_up.c press_down.c \
+		hook_functions.c \
+		press_left.c press_right.c press_up.c press_down.c \
 		free_functions.c \
 		render.c
+
+B_SRCS = bonus_main.c \
+			bonus_check_args.c bonus_check_map.c \
+			bonus_init.c bonus_init_map_utils.c \
+			bonus_hook_functions.c \
+			bonus_press_left.c bonus_press_right.c bonus_press_up.c bonus_press_down.c \
+			bonus_free_functions.c \
+			bonus_render.c
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g
@@ -34,7 +45,7 @@ RM = rm -f
 $(NAME): $(LIBFT) $(MLIBX) $(SRCS)
 	$(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(MLXFLAGS) -o $(NAME)
 
-all: $(NAME)
+all: $(NAME) bonus
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
@@ -42,15 +53,20 @@ $(LIBFT):
 $(MLIBX):
 	$(MAKE) -C $(MLIBX_DIR)
 
+bonus: $(B_NAME)
+
+$(B_NAME): $(LIBFT) $(MLIBX) $(B_SRCS)
+	$(CC) $(CFLAGS) $(B_SRCS) $(LIBFT) $(MLXFLAGS) -o $(B_NAME)
+
 clean:
 	$(MAKE) clean -C $(LIBFT_DIR)
 	$(MAKE) clean -C $(MLIBX_DIR)
 
 fclean: clean
-	$(RM) $(NAME) $(LIBFT) $(MLIBX)
+	$(RM) $(NAME) $(B_NAME) $(LIBFT) $(MLIBX)
 	$(MAKE) fclean -C $(LIBFT_DIR)
 
 re: fclean
 	$(MAKE) all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus

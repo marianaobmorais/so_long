@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_map_utils.c                                   :+:      :+:    :+:   */
+/*   bonus_init_map_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 20:32:54 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/03 17:59:14 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/03 19:21:27 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "bonus_so_long.h"
 
 static int	check_array(char *array)
 {
@@ -22,7 +22,8 @@ static int	check_array(char *array)
 		if (array[i] == '\n' && array[i + 1] == '\n')
 			return (ft_printf(ERROR_EMPTY_LINE), 0);
 		if (array[i] != '1' && array[i] != '0' && array[i] != 'C'
-			&& array[i] != 'E' && array[i] != 'P' && array[i] != '\n')
+			&& array[i] != 'E' && array[i] != 'P' && array[i] != 'R'
+			&& array[i] != '\n')
 			return (ft_printf(ERROR_CHARS), 0);
 		i++;
 	}
@@ -67,7 +68,7 @@ int	count_rows(char **matrix)
 	return (i);
 }
 
-t_point	player_position(char **matrix)
+t_point	char_position(char **matrix, char c)
 {
 	int		i;
 	int		j;
@@ -79,7 +80,7 @@ t_point	player_position(char **matrix)
 		j = 0;
 		while (matrix[i][j])
 		{
-			if (matrix[i][j] == 'P')
+			if (matrix[i][j] == c)
 			{
 				point.x = i;
 				point.y = j;

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   bonus_so_long.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:19:25 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/03 17:58:42 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/03 19:25:18 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef BONUS_SO_LONG_H
+# define BONUS_SO_LONG_H
 
 # include "./libft/libft.h"
 # include "./minilibx-linux/mlx.h"
@@ -49,6 +49,7 @@ typedef struct s_map
 	char	**matrix;
 	int		row;
 	int		column;
+	t_point	e_position;
 	t_point	p_position;
 	int		p_count;
 	int		c_count;
@@ -80,7 +81,7 @@ void	init_tmp(t_map *tmp, t_map *map);
 t_game	*init_game(t_map *map);
 char	**get_matrix(int fd);
 int		count_rows(char **matrix);
-t_point	player_position(char **matrix);
+t_point	char_position(char **matrix, char c);
 int		count_characters(char **matrix, char c);
 int		check_map(t_map *map);
 int		check_columns(t_map *map);
@@ -96,5 +97,6 @@ void	press_up(t_game *game);
 void	press_down(t_game *game);
 void	press_left(t_game *game);
 void	press_right(t_game *game);
+void	exit_animation(t_game *game);
 
 #endif

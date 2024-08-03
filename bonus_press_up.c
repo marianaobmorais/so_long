@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   press_up.c                                         :+:      :+:    :+:   */
+/*   bonus_press_up.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 14:45:42 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/03 17:58:50 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/03 19:51:56 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "bonus_so_long.h"
 
 static void	move_up(t_game *game)
 {
@@ -26,14 +26,14 @@ static void	move_up(t_game *game)
 	}
 	if (matrix[pos.x][pos.y] == 'E')
 	{
-		put_tile(game, "./textures/e.xpm", pos.y * PIXEL, pos.x * PIXEL);
-		put_tile(game, "./textures/p_f.xpm", pos.y * PIXEL,
+		put_tile(game, "./textures/b_e1.xpm", pos.y * PIXEL, pos.x * PIXEL);
+		put_tile(game, "./textures/p_b.xpm", pos.y * PIXEL,
 			(pos.x - 1) * PIXEL);
 	}
 	else
 	{
 		put_tile(game, "./textures/0.xpm", pos.y * PIXEL, pos.x * PIXEL);
-		put_tile(game, "./textures/p_f.xpm", pos.y * PIXEL,
+		put_tile(game, "./textures/p_b.xpm", pos.y * PIXEL,
 			(pos.x - 1) * PIXEL);
 	}
 }
