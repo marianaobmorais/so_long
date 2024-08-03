@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:19:25 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/01 15:07:50 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/03 17:16:18 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ typedef struct s_image
 	void	*img_ptr;
 	char	*addr;
 	int		bpp;
-/* 	int		width;
-	int		height; */
 	int		line_len;
 	int		endian;
 	t_point	tile_pos;
@@ -97,13 +95,9 @@ void	put_tile(t_game *game, char *path, int x, int y);
 void	free_map_matrix(char **matrix);
 void	free_structs(t_game *game);
 int		key_input(int keysym, t_game *game);
-void	check_up(t_game *game);
-void	check_down(t_game *game);
-void	check_left(t_game *game);
-void	check_right(t_game *game);
-void	move_up(t_game *game);
-void	move_down(t_game *game);
-void	move_left(t_game *game);
-void	move_right(t_game *game);
+void	press_up(t_game *game);
+void	press_down(t_game *game);
+void	press_left(t_game *game);
+void	press_right(t_game *game);
 
 #endif
