@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 19:49:33 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/03 18:12:00 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/05 21:21:29 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	close_window(t_game *game)
 
 int	key_input(int keysym, t_game *game)
 {
+	move_rabbits(game);
 	if (keysym == XK_Escape)
 		close_window(game);
 	if (keysym == XK_A || keysym == XK_a || keysym == XK_Left)
@@ -30,5 +31,14 @@ int	key_input(int keysym, t_game *game)
 		press_up(game);
 	if (keysym == XK_S || keysym == XK_s || keysym == XK_Down)
 		press_down(game);
+	
+	print_move(game);
+	if (game->map->c_count == 0)
+	{
+		put_tile(game, "./textures/b_e2.xpm", game->map->e_position.y * PIXEL,
+			game->map->e_position.x * PIXEL);
+		put_tile(game, "./textures/b_e3.xpm", game->map->e_position.y * PIXEL,
+			game->map->e_position.x * PIXEL);
+	}
 	return (0);
 }

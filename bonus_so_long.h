@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:19:25 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/03 19:25:18 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/05 20:32:23 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <fcntl.h>
 # include <X11/keysym.h>
 # include <X11/X.h>
+# include <time.h>
 
 # define ERROR_GAME_INIT "Error: game initialization failed\n"
 # define ERROR_NO_ARG "Error: no arguments"
@@ -35,6 +36,8 @@
 # define ERROR_READ "Error: unsuccessfull file read\n"
 # define ERROR_IMG_LOAD "Error: could not load image %s\n"
 # define GAME_COMPLETE "Congratulations! You completed the game!\n"
+# define GAME_LOST "The killer rabbit caught you. You lose!\n"
+# define GAME_LOST_C "The killer rabbit caught one of your knigths. You lose!\n"
 
 # define PIXEL 32
 
@@ -59,6 +62,7 @@ typedef struct s_map
 typedef struct s_image
 {
 	void	*img_ptr;
+	void	*block_ptr;
 	char	*addr;
 	int		bpp;
 	int		line_len;
@@ -97,6 +101,12 @@ void	press_up(t_game *game);
 void	press_down(t_game *game);
 void	press_left(t_game *game);
 void	press_right(t_game *game);
-void	exit_animation(t_game *game);
+void	print_move(t_game *game);
+void	*init_count_block(t_game *game);
+void	move_rabbits(t_game *game);
+int		rabbit_left(t_game *game, t_point pos);
+int		rabbit_right(t_game *game, t_point pos);
+int		rabbit_up(t_game *game, t_point pos);
+int		rabbit_down(t_game *game, t_point pos);
 
 #endif

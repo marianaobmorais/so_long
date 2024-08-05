@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 19:24:54 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/03 18:11:29 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/05 16:35:02 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	free_structs(t_game *game)
 		{
 			if (game->img->img_ptr)
 				mlx_destroy_image(game->mlx, game->img->img_ptr);
+			if (game->img->block_ptr)
+				mlx_destroy_image(game->mlx, game->img->block_ptr);
 			free(game->img);
 		}
 		if (game->window)
