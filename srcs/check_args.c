@@ -6,11 +6,11 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 18:44:51 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/03 17:59:32 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:41:45 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../include/so_long.h"
 
 static int	check_ext(const char *str)
 {

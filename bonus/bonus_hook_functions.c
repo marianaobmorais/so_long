@@ -6,11 +6,11 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 19:49:33 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/05 21:21:29 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:58:15 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bonus_so_long.h"
+#include "../include/bonus_so_long.h"
 
 int	close_window(t_game *game)
 {
@@ -20,7 +20,7 @@ int	close_window(t_game *game)
 
 int	key_input(int keysym, t_game *game)
 {
-	move_rabbits(game);
+	//move_rabbits(game);
 	if (keysym == XK_Escape)
 		close_window(game);
 	if (keysym == XK_A || keysym == XK_a || keysym == XK_Left)
@@ -31,7 +31,6 @@ int	key_input(int keysym, t_game *game)
 		press_up(game);
 	if (keysym == XK_S || keysym == XK_s || keysym == XK_Down)
 		press_down(game);
-	
 	print_move(game);
 	if (game->map->c_count == 0)
 	{

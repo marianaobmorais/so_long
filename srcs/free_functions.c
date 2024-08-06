@@ -6,11 +6,11 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 19:24:54 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/07/30 18:34:43 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:42:06 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../include/so_long.h"
 
 void	free_map_matrix(char **matrix)
 {
@@ -25,6 +25,18 @@ void	free_map_matrix(char **matrix)
 		i++;
 	}
 	free(matrix);
+}
+
+void	free_map_struct(t_map *map)
+{
+	if (map)
+	{
+
+		if (map->matrix)
+			free_map_matrix(map->matrix);
+		free(map);
+	}
+	free(map);
 }
 
 void	free_structs(t_game *game)

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bonus_press_up.c                                   :+:      :+:    :+:   */
+/*   press_up.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 14:45:42 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/05 21:28:41 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:42:42 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bonus_so_long.h"
+#include "../include/so_long.h"
 
 static void	move_up(t_game *game)
 {
@@ -26,20 +26,14 @@ static void	move_up(t_game *game)
 	}
 	if (matrix[pos.x][pos.y] == 'E')
 	{
-		put_tile(game, "./textures/b_e1.xpm", pos.y * PIXEL, pos.x * PIXEL);
-		put_tile(game, "./textures/p_b.xpm", pos.y * PIXEL,
+		put_tile(game, "./textures/e.xpm", pos.y * PIXEL, pos.x * PIXEL);
+		put_tile(game, "./textures/p_f.xpm", pos.y * PIXEL,
 			(pos.x - 1) * PIXEL);
 	}
-/* 	if (matrix[pos.x][pos.y] == 'R')//
-	{
-		put_tile(game, "./textures/r_f.xpm", pos.y * PIXEL, pos.x * PIXEL);
-		put_tile(game, "./textures/p_b.xpm", pos.y * PIXEL,
-			(pos.x - 1) * PIXEL);
-	} */
 	else
 	{
 		put_tile(game, "./textures/0.xpm", pos.y * PIXEL, pos.x * PIXEL);
-		put_tile(game, "./textures/p_b.xpm", pos.y * PIXEL,
+		put_tile(game, "./textures/p_f.xpm", pos.y * PIXEL,
 			(pos.x - 1) * PIXEL);
 	}
 }
@@ -52,19 +46,12 @@ void	press_up(t_game *game)
 	pos = game->map->p_position;
 	matrix = game->map->matrix;
 	if (matrix[pos.x - 1][pos.y] == '1')
-	{
-		put_tile(game, "./textures/p_b.xpm", pos.y * PIXEL, pos.x * PIXEL);
 		return ;
-	}
 	else
 		move_up(game);
 	game->move_count += 1;
 	game->map->p_position.x -= 1;
-	if (matrix[pos.x - 1][pos.y] == 'R')
-	{
-		ft_printf(GAME_LOST);
-		close_window(game);
-	}
+	ft_printf("Move count: %d\n", game->move_count);
 	if (matrix[pos.x - 1][pos.y] == 'E' && game->map->c_count == 0)
 	{
 		ft_printf(GAME_COMPLETE);

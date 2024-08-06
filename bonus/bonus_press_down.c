@@ -6,11 +6,11 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:37:14 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/05 21:28:37 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/06 18:16:19 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bonus_so_long.h"
+#include "../include/bonus_so_long.h"
 
 static void	move_down(t_game *game)
 {
@@ -30,12 +30,11 @@ static void	move_down(t_game *game)
 		put_tile(game, "./textures/p_f.xpm", pos.y * PIXEL,
 			(pos.x + 1) * PIXEL);
 	}
-/* 	if (matrix[pos.x][pos.y] == 'R')//
+	else if (matrix[pos.x][pos.y] == 'R')
 	{
 		put_tile(game, "./textures/r_f.xpm", pos.y * PIXEL, pos.x * PIXEL);
-		put_tile(game, "./textures/p_f.xpm", pos.y * PIXEL,
-			(pos.x + 1) * PIXEL);
-	} */
+		put_tile(game, "./textures/p_f.xpm", pos.y * PIXEL, (pos.x + 1) * PIXEL);
+	}
 	else
 	{
 		put_tile(game, "./textures/0.xpm", pos.y * PIXEL, pos.x * PIXEL);
@@ -60,7 +59,7 @@ void	press_down(t_game *game)
 		move_down(game);
 	game->move_count += 1;
 	game->map->p_position.x += 1;
-	if (matrix[pos.x + 1][pos.y] == 'R')
+	if (matrix[pos.x + 1][pos.y] == 'R' || matrix[pos.x][pos.y] == 'R')
 	{
 		ft_printf(GAME_LOST);
 		close_window(game);

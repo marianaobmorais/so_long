@@ -6,11 +6,11 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:36:38 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/03 17:58:56 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:42:37 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../include/so_long.h"
 
 static void	move_left(t_game *game)
 {

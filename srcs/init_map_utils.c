@@ -6,11 +6,11 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 20:32:54 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/03 17:59:14 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:42:27 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../include/so_long.h"
 
 static int	check_array(char *array)
 {

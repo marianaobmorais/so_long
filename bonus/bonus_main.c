@@ -6,16 +6,11 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:18:43 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/05 19:48:35 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/06 18:47:51 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bonus_so_long.h"
-
-/* void	move_rabbit(t_game *game)
-{
-	
-} */
+#include "../include/bonus_so_long.h"
 
 void	print_move(t_game *game)
 {
@@ -34,6 +29,26 @@ void	print_move(t_game *game)
 	free(s);
 }
 
+int	random_move(t_game *game)
+{
+	time_t	curr_time;
+
+	curr_time = time(NULL);
+
+	if (curr_time - game->r_move_time >= RABBIT_INTERVAL)
+	{
+		move_rabbits(game);
+		game->r_move_time = curr_time;
+		int i = 0;
+		while (game->map->matrix[i])
+		{
+			ft_printf("%s\n", game->map->matrix[i]);
+			i++;
+		}
+	}
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
 	t_map	*map;
@@ -50,6 +65,7 @@ int	main(int ac, char **av)
 	srand(time(NULL));
 	render(game);
 	print_move(game);
+	mlx_loop_hook(game->mlx, random_move, game);
 	mlx_hook(game->window, KeyPress, KeyPressMask, key_input, game);
 	mlx_hook(game->window, DestroyNotify, NoEventMask, close_window, game);
 	mlx_loop(game->mlx);

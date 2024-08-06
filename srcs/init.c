@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bonus_init.c                                       :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:27:08 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/05 17:18:57 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:42:30 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bonus_so_long.h"
+#include "../include/so_long.h"
 
 t_map	*init_map(char *filename)
 {
@@ -29,13 +29,15 @@ t_map	*init_map(char *filename)
 		return (free(map), NULL);
 	map->row = count_rows(map->matrix);
 	map->column = ft_strlen(map->matrix[0]);
-	map->e_position = char_position(map->matrix, 'E');
-	map->p_position = char_position(map->matrix, 'P');
+	map->p_position = player_position(map->matrix);
 	map->p_count = count_characters(map->matrix, 'P');
 	map->c_count = count_characters(map->matrix, 'C');
 	map->e_count = count_characters(map->matrix, 'E');
 	if (!check_map(map))
-		return (free_map_matrix(map->matrix), free(map), NULL);
+	{
+		free_map_matrix(map->matrix);
+		return (free(map), NULL);
+	}
 	return (map);
 }
 
@@ -68,39 +70,11 @@ void	init_tmp(t_map *tmp, t_map *map)
 	tmp->e_count = map->e_count;
 }
 
-void	*init_count_block(t_game *game)
-{
-	int	width;
-	int	height;
-	int	*data;
-	int	i;
-
-	width = 148;
-	height = 20;
-	game->img->block_ptr = mlx_new_image(game->mlx, width, height);
-	if (!game->img->block_ptr)
-		return (NULL);
-	data = (int *)mlx_get_data_addr(game->img->block_ptr, &game->img->bpp,
-			&game->img->line_len, &game->img->endian);
-	if (!data)
-		return (NULL);
-	i = 0;
-	while (i < width * height)
-	{
-		data[i] = 0x3F565A;
-		i++;
-	}
-	return (game->img->block_ptr);
-}
-
 t_image	*init_image(t_game *game)
 {
 	game->img->img_ptr = mlx_new_image(game->mlx,
 			(game->map->column * PIXEL), (game->map->row * PIXEL));
 	if (!game->img->img_ptr)
-		return (NULL);
-	game->img->block_ptr = init_count_block(game);
-	if (!game->img->block_ptr)
 		return (NULL);
 	game->img->bpp = 0;
 	game->img->line_len = 0;
@@ -119,6 +93,8 @@ t_game	*init_game(t_map *map)
 	t_game	*game;
 
 	game = (t_game *)malloc(sizeof(t_game));
+	if (!game)
+		return (free_map_struct(map), NULL);
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		return (free_structs(game), NULL);

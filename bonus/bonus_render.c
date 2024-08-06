@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   bonus_render.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 19:49:16 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/03 17:58:45 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:44:04 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../include/bonus_so_long.h"
 
 void	put_tile(t_game *game, char *path, int x, int y)
 {
@@ -55,9 +55,11 @@ void	render(t_game *game)
 			else if (game->map->matrix[y][x] == 'C')
 				put_tile(game, "./textures/c.xpm", (x * PIXEL), (y * PIXEL));
 			else if (game->map->matrix[y][x] == 'E')
-				put_tile(game, "./textures/e.xpm", (x * PIXEL), (y * PIXEL));
+				put_tile(game, "./textures/b_e1.xpm", (x * PIXEL), (y * PIXEL));
 			else if (game->map->matrix[y][x] == 'P')
 				put_tile(game, "./textures/p_f.xpm", (x * PIXEL), (y * PIXEL));
+			else if (game->map->matrix[y][x] == 'R')
+				put_tile(game, "./textures/r_b.xpm", (x * PIXEL), (y * PIXEL));
 			y++;
 		}
 		x++;

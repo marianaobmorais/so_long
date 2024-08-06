@@ -6,11 +6,11 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:36:38 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/05 21:28:27 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/06 18:36:25 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bonus_so_long.h"
+#include "../include/bonus_so_long.h"
 
 static void	move_left(t_game *game)
 {
@@ -30,12 +30,12 @@ static void	move_left(t_game *game)
 		put_tile(game, "./textures/p_l.xpm", (pos.y - 1) * PIXEL,
 			pos.x * PIXEL);
 	}
-/* 	if (matrix[pos.x][pos.y] == 'R')//
+	else if (matrix[pos.x][pos.y] == 'R')
 	{
 		put_tile(game, "./textures/r_f.xpm", pos.y * PIXEL, pos.x * PIXEL);
 		put_tile(game, "./textures/p_l.xpm", (pos.y - 1) * PIXEL,
 			pos.x * PIXEL);
-	} */
+	}
 	else
 	{
 		put_tile(game, "./textures/0.xpm", pos.y * PIXEL, pos.x * PIXEL);
@@ -60,7 +60,8 @@ void	press_left(t_game *game)
 		move_left(game);
 	game->move_count += 1;
 	game->map->p_position.y -= 1;
-	if (matrix[pos.x][pos.y - 1] == 'R')
+	//matrix[pos.x][pos.y - 1] = 'P'; atualizar a matrix do player antes do coelho
+	if (matrix[pos.x][pos.y - 1] == 'R' || matrix[pos.x][pos.y] == 'R')
 	{
 		ft_printf(GAME_LOST);
 		close_window(game);

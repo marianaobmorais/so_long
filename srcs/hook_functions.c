@@ -6,11 +6,11 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 19:49:33 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/03 17:59:17 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:42:21 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../include/so_long.h"
 
 int	close_window(t_game *game)
 {

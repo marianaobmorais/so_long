@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   bonus_so_long.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:19:25 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/03 17:58:42 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/06 18:14:26 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef BONUS_SO_LONG_H
+# define BONUS_SO_LONG_H
 
-# include "./libft/libft.h"
-# include "./minilibx-linux/mlx.h"
+# include "../libft/libft.h"
+# include "../minilibx-linux/mlx.h"
 # include <fcntl.h>
 # include <X11/keysym.h>
 # include <X11/X.h>
+# include <time.h>
 
 # define ERROR_GAME_INIT "Error: game initialization failed\n"
 # define ERROR_NO_ARG "Error: no arguments"
@@ -35,8 +36,12 @@
 # define ERROR_READ "Error: unsuccessfull file read\n"
 # define ERROR_IMG_LOAD "Error: could not load image %s\n"
 # define GAME_COMPLETE "Congratulations! You completed the game!\n"
+# define GAME_LOST "The killer rabbit caught you. You lose!\n"
+# define GAME_LOST_C "The killer rabbit caught one of your knights. You lose!\n"
 
 # define PIXEL 32
+
+# define RABBIT_INTERVAL 0.05
 
 typedef struct s_point
 {
@@ -49,6 +54,7 @@ typedef struct s_map
 	char	**matrix;
 	int		row;
 	int		column;
+	t_point	e_position;
 	t_point	p_position;
 	int		p_count;
 	int		c_count;
@@ -58,6 +64,7 @@ typedef struct s_map
 typedef struct s_image
 {
 	void	*img_ptr;
+	void	*block_ptr;
 	char	*addr;
 	int		bpp;
 	int		line_len;
@@ -72,6 +79,7 @@ typedef struct s_game
 	t_map	*map;
 	t_image	*img;
 	int		move_count;
+	time_t	r_move_time;
 }	t_game;
 
 int		check_args(int ac, char **av);
@@ -80,7 +88,7 @@ void	init_tmp(t_map *tmp, t_map *map);
 t_game	*init_game(t_map *map);
 char	**get_matrix(int fd);
 int		count_rows(char **matrix);
-t_point	player_position(char **matrix);
+t_point	char_position(char **matrix, char c);
 int		count_characters(char **matrix, char c);
 int		check_map(t_map *map);
 int		check_columns(t_map *map);
@@ -91,10 +99,19 @@ void	render(t_game *game);
 void	put_tile(t_game *game, char *path, int x, int y);
 void	free_map_matrix(char **matrix);
 void	free_structs(t_game *game);
+void	free_map_struct(t_map *map);
 int		key_input(int keysym, t_game *game);
 void	press_up(t_game *game);
 void	press_down(t_game *game);
 void	press_left(t_game *game);
 void	press_right(t_game *game);
+void	print_move(t_game *game);
+void	*init_count_block(t_game *game);
+void	move_rabbits(t_game *game);
+int		rabbit_left(t_game *game, t_point pos);
+int		rabbit_right(t_game *game, t_point pos);
+int		rabbit_up(t_game *game, t_point pos);
+int		rabbit_down(t_game *game, t_point pos);
+t_point	*find_rabbits(char **matrix, int *count);
 
 #endif

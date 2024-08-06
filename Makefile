@@ -6,13 +6,15 @@
 #    By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/17 15:34:43 by mariaoli          #+#    #+#              #
-#    Updated: 2024/08/05 18:56:08 by mariaoli         ###   ########.fr        #
+#    Updated: 2024/08/06 15:46:12 by mariaoli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 B_NAME = bonus_so_long
 
+SRCS_DIR = ./srcs
+BONUS_DIR = ./bonus
 
 LIBFT = ./libft/libft.a
 LIBFT_DIR = ./libft
@@ -20,22 +22,32 @@ LIBFT_DIR = ./libft
 MLIBX = ./minilibx-linux/libmlx.a
 MLIBX_DIR = ./minilibx-linux
 
-SRCS = main.c \
-		check_args.c check_map.c \
-		init.c init_map_utils.c \
-		hook_functions.c \
-		press_left.c press_right.c press_up.c press_down.c \
-		free_functions.c \
-		render.c
+SRCS = $(SRCS_DIR)/main.c \
+		$(SRCS_DIR)/check_args.c \
+		$(SRCS_DIR)/check_map.c \
+		$(SRCS_DIR)/init.c \
+		$(SRCS_DIR)/init_map_utils.c \
+		$(SRCS_DIR)/hook_functions.c \
+		$(SRCS_DIR)/press_left.c \
+		$(SRCS_DIR)/press_right.c \
+		$(SRCS_DIR)/press_up.c \
+		$(SRCS_DIR)/press_down.c \
+		$(SRCS_DIR)/free_functions.c \
+		$(SRCS_DIR)/render.c
 
-B_SRCS = bonus_main.c \
-			bonus_check_args.c bonus_check_map.c \
-			bonus_init.c bonus_init_map_utils.c \
-			bonus_hook_functions.c \
-			bonus_press_left.c bonus_press_right.c bonus_press_up.c bonus_press_down.c \
-			bonus_free_functions.c \
-			bonus_render.c \
-			bonus_move_rabbit.c #######
+B_SRCS = $(BONUS_DIR)/bonus_main.c \
+			$(BONUS_DIR)/bonus_check_args.c \
+			$(BONUS_DIR)/bonus_check_map.c \
+			$(BONUS_DIR)/bonus_init.c \
+			$(BONUS_DIR)/bonus_init_map_utils.c \
+			$(BONUS_DIR)/bonus_hook_functions.c \
+			$(BONUS_DIR)/bonus_press_left.c \
+			$(BONUS_DIR)/bonus_press_right.c \
+			$(BONUS_DIR)/bonus_press_up.c \
+			$(BONUS_DIR)/bonus_press_down.c \
+			$(BONUS_DIR)/bonus_free_functions.c \
+			$(BONUS_DIR)/bonus_render.c \
+			$(BONUS_DIR)/bonus_move_rabbit.c #######
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g
