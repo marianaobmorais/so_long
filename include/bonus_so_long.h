@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:19:25 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/06 18:14:26 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/07 15:51:50 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,10 @@ void	press_right(t_game *game);
 void	print_move(t_game *game);
 void	*init_count_block(t_game *game);
 void	move_rabbits(t_game *game);
+t_point	*find_rabbits(char **matrix, int *count);
 int		rabbit_left(t_game *game, t_point pos);
 int		rabbit_right(t_game *game, t_point pos);
 int		rabbit_up(t_game *game, t_point pos);
 int		rabbit_down(t_game *game, t_point pos);
-t_point	*find_rabbits(char **matrix, int *count);
 
 #endif

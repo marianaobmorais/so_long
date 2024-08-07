@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:18:43 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/06 18:47:51 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/07 18:52:58 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,13 @@ int	random_move(t_game *game)
 		move_rabbits(game);
 		game->r_move_time = curr_time;
 		int i = 0;
-		while (game->map->matrix[i])
+		while (game->map->matrix[i]) //debug
 		{
 			ft_printf("%s\n", game->map->matrix[i]);
 			i++;
 		}
+		ft_printf("exit position: x = %d, y = %d\n", game->map->e_position.x, game->map->e_position.y);
+		ft_printf("player position: x = %d, y = %d\n\n", game->map->p_position.x, game->map->p_position.y);
 	}
 	return (0);
 }

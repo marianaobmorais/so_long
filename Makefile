@@ -6,7 +6,7 @@
 #    By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/17 15:34:43 by mariaoli          #+#    #+#              #
-#    Updated: 2024/08/06 15:46:12 by mariaoli         ###   ########.fr        #
+#    Updated: 2024/08/07 15:50:48 by mariaoli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,8 @@ B_SRCS = $(BONUS_DIR)/bonus_main.c \
 			$(BONUS_DIR)/bonus_press_down.c \
 			$(BONUS_DIR)/bonus_free_functions.c \
 			$(BONUS_DIR)/bonus_render.c \
-			$(BONUS_DIR)/bonus_move_rabbit.c #######
+			$(BONUS_DIR)/bonus_move_rabbits.c \
+			$(BONUS_DIR)/bonus_move_rabbits_utils.c
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g
