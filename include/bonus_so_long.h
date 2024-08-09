@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:19:25 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/07 15:51:50 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/08 15:14:11 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,12 @@
 # define GAME_COMPLETE "Congratulations! You completed the game!\n"
 # define GAME_LOST "The killer rabbit caught you. You lose!\n"
 # define GAME_LOST_C "The killer rabbit caught one of your knights. You lose!\n"
+# define GAME_LOST_E "The killer rabbit ate the Holy Grail. You lose!\n"
 
 # define PIXEL 32
 
-# define RABBIT_INTERVAL 0.05
+# define RABBIT_INTERVAL 0.04
+# define KNIGHT_INTERVAL 0.08
 
 typedef struct s_point
 {
@@ -80,6 +82,7 @@ typedef struct s_game
 	t_image	*img;
 	int		move_count;
 	time_t	r_move_time;
+	time_t	c_move_time;
 }	t_game;
 
 int		check_args(int ac, char **av);
@@ -90,10 +93,11 @@ char	**get_matrix(int fd);
 int		count_rows(char **matrix);
 t_point	char_position(char **matrix, char c);
 int		count_characters(char **matrix, char c);
-int		check_map(t_map *map);
-int		check_columns(t_map *map);
+int		map_is_valid(t_map *map);
+int		map_is_square(t_map *map);
 int		map_is_closed(t_map *map);
-int		check_path(t_map *map);
+int		path_is_valid(t_map *map);
+int		check_path(t_map *tmp, int x, int y);
 int		close_window(t_game *game);
 void	render(t_game *game);
 void	put_tile(t_game *game, char *path, int x, int y);
@@ -107,11 +111,14 @@ void	press_left(t_game *game);
 void	press_right(t_game *game);
 void	print_move(t_game *game);
 void	*init_count_block(t_game *game);
+int		random_move(t_game *game);
+t_point	*find_animated(char **matrix, int *count, char c);
 void	move_rabbits(t_game *game);
-t_point	*find_rabbits(char **matrix, int *count);
+void	move_knights(t_game *game);
 int		rabbit_left(t_game *game, t_point pos);
 int		rabbit_right(t_game *game, t_point pos);
 int		rabbit_up(t_game *game, t_point pos);
 int		rabbit_down(t_game *game, t_point pos);
+int		game_over(char **matrix, int x, int y, int c_count);
 
 #endif

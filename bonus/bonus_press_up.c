@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 14:45:42 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/07 19:38:30 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:29:01 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,6 @@ static void	move_up(t_game *game, t_point pos, char **matrix)
 		put_tile(game, "./textures/p_b.xpm", pos.y * PIXEL,
 			(pos.x - 1) * PIXEL);
 	}
-/* 	if (matrix[pos.x][pos.y] == 'E')
-	{
-		put_tile(game, "./textures/b_e1.xpm", pos.y * PIXEL, pos.x * PIXEL);
-		put_tile(game, "./textures/p_b.xpm", pos.y * PIXEL,
-			(pos.x - 1) * PIXEL);
-	} */
 	else if (matrix[pos.x][pos.y] == 'R')
 	{
 		put_tile(game, "./textures/r_f.xpm", pos.y * PIXEL, pos.x * PIXEL);
@@ -60,23 +54,14 @@ void	press_up(t_game *game)
 	}
 	else
 		move_up(game, pos, matrix);
-	if (matrix[pos.x - 1][pos.y] == 'R')
-	{
-		ft_printf(GAME_LOST);
+	if (game_over(matrix, pos.x - 1, pos.y, game->map->c_count))
 		close_window(game);
-	}
 	matrix[pos.x - 1][pos.y] = 'P';
 	if (pos.x == e_pos.x && pos.y == e_pos.y)
 	{
-		ft_printf("found E\n");
-		matrix[pos.x][pos.y] = 'E'; //ver isso aqui
+		matrix[pos.x][pos.y] = 'E';
 		put_tile(game, "./textures/b_e1.xpm", pos.y * PIXEL, pos.x * PIXEL);
 	}
 	else
 		matrix[pos.x][pos.y] = '0';
-	if (matrix[pos.x - 1][pos.y] == 'E' && game->map->c_count == 0)
-	{
-		ft_printf(GAME_COMPLETE);
-		close_window(game);
-	}
 }

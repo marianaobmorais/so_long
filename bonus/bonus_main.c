@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:18:43 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/07 18:52:58 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/08 15:16:03 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,20 @@ void	print_move(t_game *game)
 
 int	random_move(t_game *game)
 {
-	time_t	curr_time;
+	time_t	r_curr_time;
+	time_t	c_curr_time;
 
-	curr_time = time(NULL);
-
-	if (curr_time - game->r_move_time >= RABBIT_INTERVAL)
+	r_curr_time = time(NULL);
+	if (r_curr_time - game->r_move_time >= RABBIT_INTERVAL)
 	{
 		move_rabbits(game);
-		game->r_move_time = curr_time;
-		int i = 0;
-		while (game->map->matrix[i]) //debug
-		{
-			ft_printf("%s\n", game->map->matrix[i]);
-			i++;
-		}
-		ft_printf("exit position: x = %d, y = %d\n", game->map->e_position.x, game->map->e_position.y);
-		ft_printf("player position: x = %d, y = %d\n\n", game->map->p_position.x, game->map->p_position.y);
+		game->r_move_time = r_curr_time;
+	}
+	c_curr_time = time(NULL);
+	if (c_curr_time - game->c_move_time >= KNIGHT_INTERVAL)
+	{
+		move_knights(game);
+		game->c_move_time = c_curr_time;
 	}
 	return (0);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   inits.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:27:08 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/06 17:42:30 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/08 13:39:07 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_map	*init_map(char *filename)
 	map->p_count = count_characters(map->matrix, 'P');
 	map->c_count = count_characters(map->matrix, 'C');
 	map->e_count = count_characters(map->matrix, 'E');
-	if (!check_map(map))
+	if (!map_is_valid(map))
 	{
 		free_map_matrix(map->matrix);
 		return (free(map), NULL);

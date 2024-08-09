@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bonus_init.c                                       :+:      :+:    :+:   */
+/*   bonus_inits.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:27:08 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/06 17:39:49 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/08 15:14:32 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_map	*init_map(char *filename)
 	map->p_count = count_characters(map->matrix, 'P');
 	map->c_count = count_characters(map->matrix, 'C');
 	map->e_count = count_characters(map->matrix, 'E');
-	if (!check_map(map))
+	if (!map_is_valid(map))
 		return (free_map_matrix(map->matrix), free(map), NULL);
 	return (map);
 }
@@ -137,5 +137,6 @@ t_game	*init_game(t_map *map)
 		return (free_structs(game), NULL);
 	game->move_count = 0;
 	game->r_move_time = time(NULL);
+	game->c_move_time = time(NULL);
 	return (game);
 }

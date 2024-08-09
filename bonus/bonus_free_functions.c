@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 19:24:54 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/06 17:41:34 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:00:41 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	free_map_struct(t_map *map)
 {
 	if (map)
 	{
-
 		if (map->matrix)
 			free_map_matrix(map->matrix);
 		free(map);

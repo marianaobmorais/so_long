@@ -6,7 +6,7 @@
 #    By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/17 15:34:43 by mariaoli          #+#    #+#              #
-#    Updated: 2024/08/07 15:50:48 by mariaoli         ###   ########.fr        #
+#    Updated: 2024/08/08 14:55:41 by mariaoli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,8 @@ MLIBX_DIR = ./minilibx-linux
 
 SRCS = $(SRCS_DIR)/main.c \
 		$(SRCS_DIR)/check_args.c \
-		$(SRCS_DIR)/check_map.c \
-		$(SRCS_DIR)/init.c \
+		$(SRCS_DIR)/map_is_valid.c \
+		$(SRCS_DIR)/inits.c \
 		$(SRCS_DIR)/init_map_utils.c \
 		$(SRCS_DIR)/hook_functions.c \
 		$(SRCS_DIR)/press_left.c \
@@ -37,8 +37,8 @@ SRCS = $(SRCS_DIR)/main.c \
 
 B_SRCS = $(BONUS_DIR)/bonus_main.c \
 			$(BONUS_DIR)/bonus_check_args.c \
-			$(BONUS_DIR)/bonus_check_map.c \
-			$(BONUS_DIR)/bonus_init.c \
+			$(BONUS_DIR)/bonus_map_is_valid.c \
+			$(BONUS_DIR)/bonus_inits.c \
 			$(BONUS_DIR)/bonus_init_map_utils.c \
 			$(BONUS_DIR)/bonus_hook_functions.c \
 			$(BONUS_DIR)/bonus_press_left.c \
@@ -47,8 +47,10 @@ B_SRCS = $(BONUS_DIR)/bonus_main.c \
 			$(BONUS_DIR)/bonus_press_down.c \
 			$(BONUS_DIR)/bonus_free_functions.c \
 			$(BONUS_DIR)/bonus_render.c \
+			$(BONUS_DIR)/bonus_find_animated.c \
 			$(BONUS_DIR)/bonus_move_rabbits.c \
-			$(BONUS_DIR)/bonus_move_rabbits_utils.c
+			$(BONUS_DIR)/bonus_move_rabbits_utils.c \
+			$(BONUS_DIR)/bonus_move_knights.c
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g
