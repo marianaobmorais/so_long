@@ -6,13 +6,13 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 19:49:19 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/08 13:36:44 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/10 17:18:52 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/bonus_so_long.h"
 
-int	map_is_square(t_map *map)
+int	map_is_rectangle(t_map *map)
 {
 	int	row;
 	int	collumn;
@@ -98,7 +98,7 @@ int	map_is_valid(t_map *map)
 {
 	if (map->row < 3 || map->column < 3)
 		return (ft_printf(ERROR_COL_ROW), 0);
-	if (!map_is_square(map))
+	if (!map_is_rectangle(map))
 		return (ft_printf(ERROR_RECTANGLE), 0);
 	if (!map_is_closed(map))
 		return (ft_printf(ERROR_WALLS), 0);

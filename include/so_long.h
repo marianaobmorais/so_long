@@ -6,7 +6,7 @@
 /*   By: mariaoli <mariaoli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:19:25 by mariaoli          #+#    #+#             */
-/*   Updated: 2024/08/08 13:37:10 by mariaoli         ###   ########.fr       */
+/*   Updated: 2024/08/10 17:17:55 by mariaoli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int		count_rows(char **matrix);
 t_point	player_position(char **matrix);
 int		count_characters(char **matrix, char c);
 int		map_is_valid(t_map *map);
-int		map_is_square(t_map *map);
+int		map_is_rectangle(t_map *map);
 int		map_is_closed(t_map *map);
 int		path_is_valid(t_map *map);
 int		close_window(t_game *game);
