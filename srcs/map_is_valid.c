@@ -78,10 +78,8 @@ int	check_path(t_map *tmp, int x, int y)
 
 int	path_is_valid(t_map *map)
 {
-	int		i;
 	t_map	tmp;
 
-	i = 0;
 	init_tmp(&tmp, map);
 	if (!tmp.matrix)
 		return (ft_printf(ERROR_MALLOC), 0);
